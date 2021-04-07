@@ -21,12 +21,38 @@ namespace ShippingINC
             _loadUnloadShips.Add(ship);
         }
 
-        public void LoadShips()
+        public void HandleShips()
+        {
+            foreach (var ship in _loadUnloadShips)
+            {
+                if (ship.InWharf = false)
+                {
+                    HandleShip(ship);
+                }
+            }
+        }
+
+        public void HandleShip(Ship ship)
+        {
+            ship.InWharf = true;
+            UnloadShip(ship);
+            LoadShip(ship);
+            DepartShip(ship);
+        }
+        public void UnloadShip(Ship ship)
+        {
+
+        }
+        public void LoadShip(Ship ship)
+        {
+
+        }
+        public void DepartShip(Ship ship)
         {
 
         }
 
-        // metode tar inn et ship 
+        // metode tar inn et ship
         // se om det er plass til ship
         //      ikke: plasser i load queue
     }
