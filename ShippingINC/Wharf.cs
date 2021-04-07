@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ShippingINC
 {
@@ -6,24 +7,25 @@ namespace ShippingINC
     {
         private int _loadCapacity;
         private int _unloadCapacity;
-        private int _shipCapacity;
-        private List<Ship> _loadUnloadShips = new List<Ship>();
+        public int ShipCapacity;
+        public List<Ship> LoadUnloadShips = new List<Ship>();
 
         public Wharf(int loadCapacity, int unloadCapacity, int shipCapacity)
         {
             _loadCapacity = loadCapacity;
             _unloadCapacity = unloadCapacity;
-            _shipCapacity = shipCapacity;
+            ShipCapacity = shipCapacity;
         }
 
         public void ArrivingShips(Ship ship)
         {
-            _loadUnloadShips.Add(ship);
+            LoadUnloadShips.Add(ship);
+            Console.WriteLine($"Ship {ship.Shipname} arrived at the Wharf");
         }
 
         public void HandleShips()
         {
-            foreach (var ship in _loadUnloadShips)
+            foreach (var ship in LoadUnloadShips)
             {
                 if (ship.InWharf = false)
                 {
@@ -49,11 +51,8 @@ namespace ShippingINC
         }
         public void DepartShip(Ship ship)
         {
-
+            LoadUnloadShips.Remove(ship);
+            Console.WriteLine($"Ship {ship.Shipname} is fully loaded and left the Wharf");
         }
-
-        // metode tar inn et ship
-        // se om det er plass til ship
-        //      ikke: plasser i load queue
     }
 }

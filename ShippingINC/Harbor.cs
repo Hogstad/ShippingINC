@@ -1,29 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ShippingINC
 {
     class Harbor
     {
         public int BoatCapacity;
-        private List<Boat> _dockbBoats = new List<Boat>();
+        public List<Boat> DockBoats = new List<Boat>();
 
         public Harbor(int boatCapacity)
         {
             BoatCapacity = boatCapacity;
         }
 
-        public void HandleBoat(Boat boat)
+        public void CheckBoatTime()
         {
-            DeparteBoat(boat);
+            foreach (var boat in DockBoats)
+            {
+                boat.TimeInPort--;
+                if (boat.TimeInPort <= 0)
+                {
+                    DepartBoat(boat);
+                }
+            }
         }
-        public void ArrivinBoats(Boat boat)
+        public void ArrivingBoat(Boat boat)
         {
-            _dockbBoats.Add(boat);
+            DockBoats.Add(boat);
+            Console.WriteLine($"Boat {boat.Boatname} arrived at the Harbor");
         }
 
-        public void DeparteBoat(Boat boat)
+        public void DepartBoat(Boat boat)
         {
-
+            DockBoats.Remove(boat);
+            Console.WriteLine($"Boat {boat.Boatname} left the Harbor");
         }
     }
 }

@@ -11,14 +11,41 @@ namespace ShippingINC
         public Wharf Wharf;
         public Harbor Harbor;
 
+        public Port(Wharf wharf, Harbor harbor)
+        {
+            Wharf = wharf;
+            Harbor = harbor;
+        }
 
-        public void ArrivingShips(Ship ship)
+        public void ArrivingShip(Ship ship)
         {
             ShipQueue.Add(ship);
         }
-        public void ArrivingBoats(Boat boatyMcBoatface)
+        public void ArrivingBoat(Boat boatyMcBoatface)
         {
-            BoatQueue.Add(boatyMcBoatface);
+            Harbor.ArrivingBoat(boatyMcBoatface);
+        }
+
+        public void HandleShipsNBoats()
+        {
+            HandleBoat();
+            HandleShips();
+        }
+        public void HandleShips()
+        {
+            if (Wharf.LoadUnloadShips.Count < Wharf.ShipCapacity)
+            {
+                Wharf.ArrivingShips(ShipQueue[0]);
+                ShipQueue.Remove(ShipQueue[0]);
+            }
+        }
+        public void HandleBoat()
+        {
+            if (Harbor.BoatCapacity > Harbor.DockBoats.Count)
+            {
+                Harbor.DockBoats.Add(BoatQueue[0]);
+                BoatQueue.Remove(BoatQueue[0]);
+            }
         }
     }
 }
