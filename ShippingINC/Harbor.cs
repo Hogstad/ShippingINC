@@ -15,13 +15,22 @@ namespace ShippingINC
 
         public void CheckBoatTime()
         {
-            foreach (var boat in DockBoats)
+            for (var i = 0; i < DockBoats.Count; i++)
             {
-                boat.TimeInPort--;
-                if (boat.TimeInPort <= 0)
+                DockBoats[i].TimeInPort--;
+                if (DockBoats[i].TimeInPort <= 0)
                 {
-                    DepartBoat(boat);
+                    DepartBoat(DockBoats[i]);
+                    i--;
                 }
+            }
+        }
+        public void HandleBoat(List<Boat> BoatQueue)
+        {
+            if (BoatCapacity > DockBoats.Count && BoatQueue.Count > 0)
+            {
+                ArrivingBoat(BoatQueue[0]);
+                BoatQueue.Remove(BoatQueue[0]);
             }
         }
         public void ArrivingBoat(Boat boat)

@@ -13,49 +13,51 @@ namespace ShippingINC
         public static Random Randy = new Random();
         static void Main()
         {
-            CharacterGenerator(3);
-            void CharacterGenerator(int num)
+            int hours = 0;
+            int days = 0;
+
+            var cthuwu = new Cthuwu();
+            var PortFlemming = new Port(new Wharf(5, 5, 2), new Harbor(300));
+
+            while (true)
             {
-                var text = String.Empty;
-                for (var i = 0; i < num; i++)
+                // hva som skjer hver time
+                PortFlemming.HandleShipsNBoats();
+                PortFlemming.RequestShipOrBoat();
+                Console.WriteLine(hours);
+
+
+
+                // kjsadhfkjahsdkfjhaskjdhfkja
+                hours++;
+                if (hours == 5)
                 {
-                    text += (char)Randy.Next(65, 91);
+                    hours = 0;
+                    days++;
+                    // hva som skjer hvert døgn
+
+                    PortFlemming.Harbor.CheckBoatTime();
+
+
+                    Console.WriteLine($"\nDay {days}\nThere is {PortFlemming.Harbor.DockBoats.Count} boats in the harbor\n");
+
+
+                    //hkafsgdkjfhaksjhdfkjahskjdf
                 }
-                Console.WriteLine(text);
+                Thread.Sleep(1000);
             }
-
-            //int hours = 65;
-            //int days = 0;
-
-            //var PortFlemming = new Port(new Wharf(5, 5, 2), new Harbor(300));
-
-            //while (true)
-            //{
-            //    // hva som skjer hver time
-
-
-
-
-
-            //    // kjsadhfkjahsdkfjhaskjdhfkja
-            //    hours++;
-            //    if (hours == 24)
-            //    {
-            //        hours = 0;
-            //        days++;
-            //        // hva som skjer hvert døgn
-
-            //        PortFlemming.Harbor.CheckBoatTime();
-
-
-            //        Console.WriteLine($"Day {days}");
-
-            //        //hkafsgdkjfhaksjhdfkjahskjdf
-            //    }
-            //    Thread.Sleep(1000);
-            //}
 
         }
         
     }
 }
+/*
+ *  C lager båter og ship
+ *  P tar imot og sender til riktig plass
+ *  W motar ship og håndterer de
+ *  H mottar boat og håndterer de
+ *
+ *
+ *
+ *
+ */

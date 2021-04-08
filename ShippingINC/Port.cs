@@ -10,11 +10,27 @@ namespace ShippingINC
         public List<Boat> BoatQueue = new List<Boat>();
         public Wharf Wharf;
         public Harbor Harbor;
+        public Cthuwu Cthuwu = new Cthuwu();
+        public Random Randy = new Random();
 
         public Port(Wharf wharf, Harbor harbor)
         {
             Wharf = wharf;
             Harbor = harbor;
+        }
+
+        public void RequestShipOrBoat()
+        {
+            if (Randy.Next(0, 10) == 0)
+            {
+                var ship = Cthuwu.SendShip();
+                ArrivingShip(ship);
+            }
+            else
+            {
+                var boat = Cthuwu.SendBoat();
+                ArrivingBoat(boat);
+            }
         }
 
         public void ArrivingShip(Ship ship)
@@ -23,29 +39,15 @@ namespace ShippingINC
         }
         public void ArrivingBoat(Boat boatyMcBoatface)
         {
-            Harbor.ArrivingBoat(boatyMcBoatface);
+            BoatQueue.Add(boatyMcBoatface);
         }
 
         public void HandleShipsNBoats()
         {
-            HandleBoat();
-            HandleShips();
+            Harbor.HandleBoat(BoatQueue);
+            Wharf.HandleShips(ShipQueue);
         }
-        public void HandleShips()
-        {
-            if (Wharf.LoadUnloadShips.Count < Wharf.ShipCapacity)
-            {
-                Wharf.ArrivingShips(ShipQueue[0]);
-                ShipQueue.Remove(ShipQueue[0]);
-            }
-        }
-        public void HandleBoat()
-        {
-            if (Harbor.BoatCapacity > Harbor.DockBoats.Count)
-            {
-                Harbor.DockBoats.Add(BoatQueue[0]);
-                BoatQueue.Remove(BoatQueue[0]);
-            }
-        }
+        
+        
     }
 }

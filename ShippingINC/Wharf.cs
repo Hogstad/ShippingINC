@@ -22,19 +22,27 @@ namespace ShippingINC
             LoadUnloadShips.Add(ship);
             Console.WriteLine($"Ship {ship.Shipname} arrived at the Wharf");
         }
+        public void HandleShips(List<Ship> ShipQueue)
+        {
+            if (LoadUnloadShips.Count < ShipCapacity && ShipQueue.Count > 0)
+            {
+                ArrivingShips(ShipQueue[0]);
+                ShipQueue.Remove(ShipQueue[0]);
+            }
+        }
 
-        public void HandleShips()
+        public void CheckShipsInProcess()
         {
             foreach (var ship in LoadUnloadShips)
             {
                 if (ship.InWharf = false)
                 {
-                    HandleShip(ship);
+                    ProcessShip(ship);
                 }
             }
         }
 
-        public void HandleShip(Ship ship)
+        public void ProcessShip(Ship ship)
         {
             ship.InWharf = true;
             UnloadShip(ship);
