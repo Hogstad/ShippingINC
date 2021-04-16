@@ -6,17 +6,21 @@ namespace ShippingINC
 {
     class Port
     {
+        public string Name;
         public List<Ship> ShipQueue = new List<Ship>();
         public List<Boat> BoatQueue = new List<Boat>();
         public Wharf Wharf;
         public Harbor Harbor;
+        public Rapport Rapport;
         public Cthuwu Cthuwu = new Cthuwu();
         public Random Randy = new Random();
 
-        public Port(Wharf wharf, Harbor harbor)
+        public Port(string name, Wharf wharf, Harbor harbor)
         {
+            Name = name;
             Wharf = wharf;
             Harbor = harbor;
+            Rapport = new Rapport(Name, Wharf, Harbor);
         }
 
         public void RequestShipOrBoat()
@@ -47,7 +51,17 @@ namespace ShippingINC
             Harbor.HandleBoat(BoatQueue);
             Wharf.HandleShips(ShipQueue);
         }
-        
-        
+
+        public void HourlyTasks()
+        {
+            HandleShipsNBoats();
+            RequestShipOrBoat();
+        }
+
+        public void DailyTasks()
+        {
+            Harbor.CheckBoatTime();
+            Console.WriteLine(Rapport.SendRapport());
+        }
     }
 }

@@ -13,51 +13,19 @@ namespace ShippingINC
         public static Random Randy = new Random();
         static void Main()
         {
-            int hours = 0;
-            int days = 0;
-
-            var cthuwu = new Cthuwu();
-            var PortFlemming = new Port(new Wharf(5, 5, 2), new Harbor(300));
+            var PortFlemming = new Port("Port Flemming", new Wharf(50, 50, 3), new Harbor(300));
 
             while (true)
             {
-                // hva som skjer hver time
-                PortFlemming.HandleShipsNBoats();
-                PortFlemming.RequestShipOrBoat();
-                Console.WriteLine(hours);
-
-
-
-                // kjsadhfkjahsdkfjhaskjdhfkja
-                hours++;
-                if (hours == 5)
+                PortFlemming.HourlyTasks();
+                if (PortFlemming.Rapport.IsNewDay())
                 {
-                    hours = 0;
-                    days++;
-                    // hva som skjer hvert døgn
-
-                    PortFlemming.Harbor.CheckBoatTime();
-
-
-                    Console.WriteLine($"\nDay {days}\nThere is {PortFlemming.Harbor.DockBoats.Count} boats in the harbor\n");
-
-
-                    //hkafsgdkjfhaksjhdfkjahskjdf
+                    PortFlemming.DailyTasks();
+                    Thread.Sleep(3000);
                 }
                 Thread.Sleep(1000);
             }
-
         }
-        
     }
 }
-/*
- *  C lager båter og ship
- *  P tar imot og sender til riktig plass
- *  W motar ship og håndterer de
- *  H mottar boat og håndterer de
- *
- *
- *
- *
- */
+
